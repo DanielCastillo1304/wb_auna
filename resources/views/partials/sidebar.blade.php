@@ -6,7 +6,7 @@
 
         {{-- BRAND --}}
         <div class="h-[60px] flex items-center px-5 flex-shrink-0"
-             style="border-bottom: 1px solid rgba(255,255,255,0.06);">
+            style="border-bottom: 1px solid rgba(255,255,255,0.06);">
             <a href="{{ route('home') }}" class="flex items-center gap-2.5 flex-1">
                 <div class="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 bg-white">
                     <img src="{{ mix('img/icon.jpg') }}" class="w-4 h-4 object-contain" alt="Logo">
@@ -18,7 +18,7 @@
                     </p>
                 </div>
                 <span class="ml-auto text-[9px] font-black px-1.5 py-0.5 rounded"
-                      style="background: rgba(190,214,0,0.1); color: rgb(190,214,0); border: 1px solid rgba(190,214,0,0.15);">
+                    style="background: rgba(190,214,0,0.1); color: rgb(190,214,0); border: 1px solid rgba(190,214,0,0.15);">
                     v1.0
                 </span>
             </a>
@@ -35,38 +35,55 @@
             @php $dashActive = request()->routeIs('home'); @endphp
             <a href="{{ route('home') }}"
                 class="flex items-center gap-2.5 mx-2 px-3 py-2 rounded-lg transition-all duration-150 group"
-                style="{{ $dashActive
-                    ? 'background: rgba(0,176,202,0.12); color: rgb(0,176,202);'
-                    : 'color: rgba(255,255,255,0.45);' }}"
+                style="{{ $dashActive ? 'background: rgba(0,176,202,0.12); color: rgb(0,176,202);' : 'color: rgba(255,255,255,0.45);' }}"
                 onmouseover="{{ !$dashActive ? "this.style.background='rgba(255,255,255,0.05)'; this.style.color='rgba(255,255,255,0.8)';" : '' }}"
                 onmouseout="{{ !$dashActive ? "this.style.background=''; this.style.color='rgba(255,255,255,0.45)';" : '' }}">
                 <span class="material-symbols-outlined text-[18px] flex-shrink-0"
-                      style="{{ $dashActive ? 'color: rgb(0,176,202)' : '' }}">
+                    style="{{ $dashActive ? 'color: rgb(0,176,202)' : '' }}">
                     grid_view
                 </span>
                 <span class="text-[13px] font-medium">Dashboard</span>
-                @if($dashActive)
-                    <span class="ml-auto w-1 h-1 rounded-full"
-                          style="background: rgb(0,176,202);"></span>
+                @if ($dashActive)
+                    <span class="ml-auto w-1 h-1 rounded-full" style="background: rgb(0,176,202);"></span>
                 @endif
             </a>
 
             @php
                 $menu = [
                     [
-                        'id'       => 'mantenimiento',
-                        'label'    => 'Mantenimiento',
-                        'icon'     => 'build',
+                        'id' => 'mantenimiento',
+                        'label' => 'Mantenimiento',
+                        'icon' => 'build',
                         'children' => [
                             [
-                                'label'  => 'Tipos de equipo',
-                                'route'  => 'equipment_type.list',
+                                'label' => 'Tipos de equipo',
+                                'route' => 'equipment_type.list',
                                 'routes' => ['equipment_type.*'],
                             ],
                             [
-                                'label'  => 'Unidad de negocio',
-                                'route'  => 'business_unit.list',
+                                'label' => 'Unidad de negocio',
+                                'route' => 'business_unit.list',
                                 'routes' => ['business_unit.*'],
+                            ],
+                            [
+                                'label' => 'Nuestras Sedes',
+                                'route' => 'location.list',
+                                'routes' => ['location.*'],
+                            ],
+                            [
+                                'label' => 'Capacidad de disco',
+                                'route' => 'disk_capacity.list',
+                                'routes' => ['disk_capacity.*'],
+                            ],
+                            [
+                                'label' => 'Memorias RAM',
+                                'route' => 'ram_capacity.list',
+                                'routes' => ['ram_capacity.*'],
+                            ],
+                            [
+                                'label' => 'Motivo devolución',
+                                'route' => 'return_reason.list',
+                                'routes' => ['return_reason.*'],
                             ],
                         ],
                     ],
@@ -98,13 +115,14 @@
                         onmouseout="{{ !$isActive ? "this.style.background=''; this.style.color='rgba(255,255,255,0.4)';" : '' }}">
                         <div class="flex items-center gap-2.5">
                             <span class="material-symbols-outlined text-[18px] flex-shrink-0"
-                                  style="{{ $isActive ? 'color: rgb(0,176,202)' : '' }}">
+                                style="{{ $isActive ? 'color: rgb(0,176,202)' : '' }}">
                                 {{ $module['icon'] }}
                             </span>
                             <span class="text-[13px] font-medium">{{ $module['label'] }}</span>
                         </div>
-                        <span class="material-symbols-outlined text-[16px] transition-transform duration-200 {{ $isActive ? '' : '-rotate-90' }}"
-                              style="color: rgba(255,255,255,0.2);">
+                        <span
+                            class="material-symbols-outlined text-[16px] transition-transform duration-200 {{ $isActive ? '' : '-rotate-90' }}"
+                            style="color: rgba(255,255,255,0.2);">
                             expand_more
                         </span>
                     </a>
@@ -119,15 +137,11 @@
                             @endphp
                             <a href="{{ route($child['route']) }}"
                                 class="flex items-center gap-2.5 ml-6 mr-2 px-3 py-1.5 rounded-lg transition-all duration-150 group"
-                                style="{{ $childActive
-                                    ? 'background: rgba(190,214,0,0.08); color: rgb(190,214,0);'
-                                    : 'color: rgba(255,255,255,0.3);' }}"
+                                style="{{ $childActive ? 'background: rgba(190,214,0,0.08); color: rgb(190,214,0);' : 'color: rgba(255,255,255,0.3);' }}"
                                 onmouseover="{{ !$childActive ? "this.style.background='rgba(255,255,255,0.04)'; this.style.color='rgba(255,255,255,0.7)';" : '' }}"
                                 onmouseout="{{ !$childActive ? "this.style.background=''; this.style.color='rgba(255,255,255,0.3)';" : '' }}">
                                 <span class="w-1 h-1 rounded-full flex-shrink-0"
-                                      style="{{ $childActive
-                                          ? 'background: rgb(190,214,0);'
-                                          : 'background: rgba(255,255,255,0.2);' }}">
+                                    style="{{ $childActive ? 'background: rgb(190,214,0);' : 'background: rgba(255,255,255,0.2);' }}">
                                 </span>
                                 <span class="text-[13px]">{{ $child['label'] }}</span>
                             </a>
@@ -138,11 +152,10 @@
         </div>
 
         {{-- FOOTER --}}
-        <div class="flex-shrink-0 px-4 py-3"
-             style="border-top: 1px solid rgba(255,255,255,0.06);">
+        <div class="flex-shrink-0 px-4 py-3" style="border-top: 1px solid rgba(255,255,255,0.06);">
             <div class="flex items-center gap-2.5">
                 <div class="w-7 h-7 rounded-lg overflow-hidden flex-shrink-0"
-                     style="border: 1px solid rgba(255,255,255,0.1);">
+                    style="border: 1px solid rgba(255,255,255,0.1);">
                     <img src="{{ mix('img/person.jpg') }}" class="w-full h-full object-cover" alt="User">
                 </div>
                 <div class="flex-1 min-w-0">
@@ -154,11 +167,11 @@
                     </p>
                 </div>
                 <a href="{{ route('logout') }}"
-                   class="w-7 h-7 flex items-center justify-center rounded-lg transition-all flex-shrink-0"
-                   style="color: rgba(255,255,255,0.3);"
-                   onmouseover="this.style.background='rgba(239,68,68,0.1)'; this.style.color='rgb(239,68,68)';"
-                   onmouseout="this.style.background=''; this.style.color='rgba(255,255,255,0.3)';"
-                   title="Cerrar sesión">
+                    class="w-7 h-7 flex items-center justify-center rounded-lg transition-all flex-shrink-0"
+                    style="color: rgba(255,255,255,0.3);"
+                    onmouseover="this.style.background='rgba(239,68,68,0.1)'; this.style.color='rgb(239,68,68)';"
+                    onmouseout="this.style.background=''; this.style.color='rgba(255,255,255,0.3)';"
+                    title="Cerrar sesión">
                     <span class="material-symbols-outlined text-[17px]">logout</span>
                 </a>
             </div>

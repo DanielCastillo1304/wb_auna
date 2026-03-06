@@ -7,34 +7,30 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BusinessUnitController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EquipmentTypeController;
+use App\Http\Controllers\LocationController;
+use App\Http\Controllers\DiskCapacityController;
+use App\Http\Controllers\RamCapacityController;
+use App\Http\Controllers\ReturnReasonController;
 use App\Http\Controllers\UserController;
 
-// Al final de todas tus rutas, puedes agregar esto para capturar cualquier 404
 Route::fallback(function () {
     return redirect('/'); // Redirige al inicio si la ruta no existe
 });
-// Ruta para la página de inicio, protegida con middleware de autenticación
+
 Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('auth');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-Route::get('/forgot_password', [LoginController::class, 'forgot_password'])->name('forgot_password');
-Route::post('/forgot_password_go', [LoginController::class, 'forgot_password_go'])->name('forgot_password_go');
-Route::get('/reset_password', [LoginController::class, 'reset_password'])->name('reset_password');
-Route::post('/reset_password_go', [LoginController::class, 'reset_password_go'])->name('reset_password_go');
-
 
 Route::prefix('login')->group(function () {
     Route::get('/', [LoginController::class, 'showLoginForm'])->name('login');
     Route::post('/', [LoginController::class, 'login'])->name('login.post');
 });
 
-// Rutas de Registro de Usuario
 Route::prefix('register')->group(function () {
     Route::get('/{section?}', [RegisterController::class, 'index'])->name('register');
     Route::post('/send_code', [RegisterController::class, 'send_code'])->name('register.send_code');
     Route::post('/store/{section?}', [RegisterController::class, 'store'])->name('register.store');
     Route::post('/', [RegisterController::class, 'register'])->name('register.post');
 });
-
 
 Route::middleware('auth')->prefix('user')->name('user.')->group(function () {
     Route::get('/list', [UserController::class, 'index'])->name('list');
@@ -68,4 +64,44 @@ Route::middleware(['auth'])->prefix('business_unit')->name('business_unit.')->gr
     Route::post('/search', [BusinessUnitController::class, 'search'])->name('search');
     Route::get('/show/{id}', [BusinessUnitController::class, 'show'])->name('show');
     Route::delete('/destroy/{id}', [BusinessUnitController::class, 'destroy'])->name('destroy');
+});
+
+Route::middleware(['auth'])->prefix('location')->name('location.')->group(function () {
+    Route::get('/list', [LocationController::class, 'index'])->name('list');
+    Route::get('/form/{id?}', [LocationController::class, 'form'])->name('form');
+    Route::post('/store/{id?}', [LocationController::class, 'store'])->name('store');
+    Route::get('/records/{from}/{to}/{keyword?}', [LocationController::class, 'records'])->name('records');
+    Route::post('/search', [LocationController::class, 'search'])->name('search');
+    Route::get('/show/{id}', [LocationController::class, 'show'])->name('show');
+    Route::delete('/destroy/{id}', [LocationController::class, 'destroy'])->name('destroy');
+});
+
+Route::middleware(['auth'])->prefix('ram_capacity')->name('ram_capacity.')->group(function () {
+    Route::get('/list', [RamCapacityController::class, 'index'])->name('list');
+    Route::get('/form/{id?}', [RamCapacityController::class, 'form'])->name('form');
+    Route::post('/store/{id?}', [RamCapacityController::class, 'store'])->name('store');
+    Route::get('/records/{from}/{to}/{keyword?}', [RamCapacityController::class, 'records'])->name('records');
+    Route::post('/search', [RamCapacityController::class, 'search'])->name('search');
+    Route::get('/show/{id}', [RamCapacityController::class, 'show'])->name('show');
+    Route::delete('/destroy/{id}', [RamCapacityController::class, 'destroy'])->name('destroy');
+});
+
+Route::middleware(['auth'])->prefix('disk_capacity')->name('disk_capacity.')->group(function () {
+    Route::get('/list', [DiskCapacityController::class, 'index'])->name('list');
+    Route::get('/form/{id?}', [DiskCapacityController::class, 'form'])->name('form');
+    Route::post('/store/{id?}', [DiskCapacityController::class, 'store'])->name('store');
+    Route::get('/records/{from}/{to}/{keyword?}', [DiskCapacityController::class, 'records'])->name('records');
+    Route::post('/search', [DiskCapacityController::class, 'search'])->name('search');
+    Route::get('/show/{id}', [DiskCapacityController::class, 'show'])->name('show');
+    Route::delete('/destroy/{id}', [DiskCapacityController::class, 'destroy'])->name('destroy');
+});
+
+Route::middleware(['auth'])->prefix('return_reason')->name('return_reason.')->group(function () {
+    Route::get('/list', [ReturnReasonController::class, 'index'])->name('list');
+    Route::get('/form/{id?}', [ReturnReasonController::class, 'form'])->name('form');
+    Route::post('/store/{id?}', [ReturnReasonController::class, 'store'])->name('store');
+    Route::get('/records/{from}/{to}/{keyword?}', [ReturnReasonController::class, 'records'])->name('records');
+    Route::post('/search', [ReturnReasonController::class, 'search'])->name('search');
+    Route::get('/show/{id}', [ReturnReasonController::class, 'show'])->name('show');
+    Route::delete('/destroy/{id}', [ReturnReasonController::class, 'destroy'])->name('destroy');
 });

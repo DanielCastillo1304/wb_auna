@@ -28,16 +28,16 @@
                 </a>
                 <span class="material-symbols-outlined text-[14px] text-slate-300">chevron_right</span>
                 <span class="font-semibold text-slate-700">
-                    {{ isset($equipment_type) ? 'Editar registro' : 'Nuevo registro' }}
+                    {{ isset($ram_capacity) ? 'Editar registro' : 'Nuevo registro' }}
                 </span>
             </div>
 
             {{-- Badge estado --}}
             <span class="ml-1 px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider"
-                style="{{ isset($equipment_type)
+                style="{{ isset($ram_capacity)
                     ? 'background: rgba(245,158,11,0.1); color: rgb(217,119,6); border: 1px solid rgba(245,158,11,0.2);'
                     : 'background: rgba(160,185,0,0.1); color: rgb(120,140,0); border: 1px solid rgba(160,185,0,0.2);' }}">
-                {{ isset($equipment_type) ? 'Editando' : 'Nuevo' }}
+                {{ isset($ram_capacity) ? 'Editando' : 'Nuevo' }}
             </span>
         </div>
 
@@ -49,7 +49,7 @@
 
             <form id="mainForm" enctype="multipart/form-data" novalidate>
                 @csrf
-                <input type="hidden" id="recordId" value="{{ $equipment_type->codequipment_type ?? '' }}">
+                <input type="hidden" id="recordId" value="{{ $ram_capacity->codram_capacity ?? '' }}">
 
                 {{-- CARD --}}
                 <div class="bg-white rounded-lg overflow-hidden"
@@ -59,11 +59,11 @@
 
                         <div class="space-y-1.5">
                             <label for="name" class="flex items-center gap-1 text-xs text-slate-500">
-                                Nombre del tipo de equipo
+                                Capacidad en GB
                                 <span class="text-red-400">*</span>
                             </label>
                             <input type="text" id="name" name="name" required placeholder="Ej: Tipo de equipo A"
-                                value="{{ $equipment_type->name ?? '' }}"
+                                value="{{ $ram_capacity->name ?? '' }}"
                                 class="w-full h-10 px-3.5 text-sm text-slate-700 rounded-md outline-none transition-all duration-200 placeholder:text-slate-300"
                                 style="background: #f8fafc; border: 1px solid #e2e8f0;"
                                 onfocus="this.style.background='white'; this.style.borderColor='rgba(0,176,202,0.5)'; this.style.boxShadow='0 0 0 3px rgba(0,176,202,0.08)';"
@@ -98,7 +98,7 @@
                                 onmouseover="this.style.background='rgb(190,214,0)'; this.style.boxShadow='0 2px 8px rgba(190,214,0,0.3)'; this.style.color='white';"
                                 onmouseout="this.style.background='rgb(0,176,202)'; this.style.boxShadow='0 2px 8px rgba(0,176,202,0.3)'; this.style.color='white';">
                                 <span id="btnSubmitText">
-                                    {{ isset($equipment_type) ? 'Actualizar' : 'Guardar' }}
+                                    {{ isset($ram_capacity) ? 'Actualizar' : 'Guardar' }}
                                 </span>
                                 {{-- <span class="material-symbols-outlined text-[15px]">chevron_right</span> --}}
                             </button>
@@ -113,7 +113,7 @@
     @push('scripts')
         <script>
             const controller = "{{ $extend['controller'] }}";
-            const recordId = "{{ $equipment_type->codequipment_type ?? '' }}";
+            const recordId = "{{ $ram_capacity->codram_capacity ?? '' }}";
         </script>
         <script src="{{ mix('js/commons/form.js') }}"></script>
         <script src="{{ mix('js/modules/' . $extend['controller'] . '/form.js') }}"></script>

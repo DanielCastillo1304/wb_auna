@@ -11,10 +11,5 @@ class Location extends Model
 
     protected $table = 'maintenance.locations';
     protected $primaryKey = 'codlocation';
-    public $incrementing = true;
-    protected $keyType = 'int';
-
-    protected $fillable = [
-        'name',
-    ];
+    protected $fillable = ['name',];
 }

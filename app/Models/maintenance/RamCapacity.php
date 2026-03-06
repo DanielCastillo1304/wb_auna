@@ -11,10 +11,5 @@ class RamCapacity extends Model
 
     protected $table = 'maintenance.ram_capacities';
     protected $primaryKey = 'codram_capacity';
-    public $incrementing = true;
-    protected $keyType = 'int';
-
-    protected $fillable = [
-        'capacity_gb'
-    ];
+    protected $fillable = ['capacity_gb'];
 }

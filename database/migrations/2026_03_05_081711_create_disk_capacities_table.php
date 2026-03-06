@@ -15,7 +15,7 @@ class CreateDiskCapacitiesTable extends Migration
     {
         Schema::create('maintenance.disk_capacities', function (Blueprint $table) {
             $table->bigIncrements('coddisk_capacity');
-            $table->integer('capacity'); 
+            $table->string('capacity',20); 
             $table->string('disk_type', 10); 
             $table->timestamps();
             $table->softDeletes();

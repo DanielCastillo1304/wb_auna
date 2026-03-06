@@ -95,7 +95,7 @@
                     <thead>
                         <tr style="border-bottom: 1px solid #e8edf2; background: #f8fafc;">
                             <th class="px-5 py-3 text-xs text-gray-500 w-16 font-semibold">#</th>
-                            <th class="px-5 py-3 text-xs text-gray-500 font-semibold">Nombre del tipo</th>
+                            <th class="px-5 py-3 text-xs text-gray-500 font-semibold">Descripción del motivo</th>
                             <th class="px-5 py-3 text-xs text-gray-500 text-right w-28 font-semibold">Acciones</th>
                         </tr>
                     </thead>

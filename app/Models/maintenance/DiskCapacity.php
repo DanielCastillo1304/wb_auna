@@ -11,11 +11,5 @@ class DiskCapacity extends Model
 
     protected $table = 'maintenance.disk_capacities';
     protected $primaryKey = 'coddisk_capacity';
-    public $incrementing = true;
-    protected $keyType = 'int';
-
-    protected $fillable = [
-        'capacity',
-        'disk_type'
-    ];
+    protected $fillable = ['capacity', 'disk_type'];
 }

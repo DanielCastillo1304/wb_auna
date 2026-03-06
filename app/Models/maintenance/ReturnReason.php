@@ -11,10 +11,5 @@ class ReturnReason extends Model
 
     protected $table = 'maintenance.return_reasons';
     protected $primaryKey = 'codreturn_reason';
-    public $incrementing = true;
-    protected $keyType = 'int';
-
-    protected $fillable = [
-        'description'
-    ];
+    protected $fillable = ['description'];
 }

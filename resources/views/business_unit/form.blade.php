@@ -57,10 +57,9 @@
                     {{-- CAMPOS --}}
                     <div class="p-6 space-y-5">
 
-                        {{-- Campo: Nombre --}}
                         <div class="space-y-1.5">
                             <label for="name" class="flex items-center gap-1 text-xs text-slate-500">
-                                Nombre del tipo de equipo
+                                Nombre de la unidad
                                 <span class="text-red-400">*</span>
                             </label>
                             <input type="text" id="name" name="name" required placeholder="Ej: Tipo de equipo A"
@@ -72,8 +71,6 @@
                             <span class="error-message hidden text-[11px] font-medium text-red-500 mt-1"
                                 data-error-for="name"></span>
                         </div>
-
-                        {{-- Más campos aquí --}}
 
                     </div>
 
