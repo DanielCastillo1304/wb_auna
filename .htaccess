@@ -1,0 +1,19 @@
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
+    RewriteEngine On
+
+    # ESTO ES LO NUEVO: Forzar que los errores de Apache se vuelvan Laravel
+    ErrorDocument 403 /index.php
+    ErrorDocument 404 /index.php
+
+    # Redirigir si la petición NO es un archivo real
+    RewriteCond %{REQUEST_FILENAME} !-f
+    # COMENTAMOS LA SIGUIENTE LÍNEA (la que tiene el !-d)
+    # RewriteCond %{REQUEST_FILENAME} !-d 
+    
+    # Mandar todo al index.php
+    RewriteRule ^ index.php [L]
+</IfModule>

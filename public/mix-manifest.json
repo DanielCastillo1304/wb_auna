@@ -1,0 +1,14 @@
+{
+    "/js/app.js": "/js/app.js",
+    "/js/commons/table.js": "/js/commons/table.js",
+    "/js/commons/form.js": "/js/commons/form.js",
+    "/js/modules/auth/login.js": "/js/modules/auth/login.js",
+    "/js/modules/business_unit/form.js": "/js/modules/business_unit/form.js",
+    "/js/modules/business_unit/index.js": "/js/modules/business_unit/index.js",
+    "/js/modules/equipment_type/form.js": "/js/modules/equipment_type/form.js",
+    "/js/modules/equipment_type/index.js": "/js/modules/equipment_type/index.js",
+    "/css/app.css": "/css/app.css",
+    "/img/icon.jpg": "/img/icon.jpg",
+    "/img/logo.svg": "/img/logo.svg",
+    "/img/person.jpg": "/img/person.jpg"
+}
