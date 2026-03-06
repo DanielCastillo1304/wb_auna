@@ -4,106 +4,116 @@
 
 @section('content')
 
-    <div class="min-h-screen py-8 px-4 sm:px-6 lg:px-8" style="background: #f0f9fb;">
-        <div class="max-w-[1400px] mx-auto">
+<div class="min-h-screen px-6 lg:px-10 py-6" style="background: #f4f6f8;">
 
-            {{-- HERO CARD --}}
-            <div class="relative overflow-hidden rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 mb-8 sm:mb-10"
-                style="background: linear-gradient(135deg, #ffffff 0%, #f0fafc 60%, #e8f7fa 100%); border: 1px solid rgba(0,176,202,0.15); box-shadow: 0 4px 24px rgba(0,176,202,0.08);">
-                {{-- Glow turquesa --}}
-                <div class="absolute top-0 right-0 w-96 h-96 rounded-full pointer-events-none"
-                    style="background: radial-gradient(circle, rgba(0,176,202,0.15) 0%, transparent 70%); transform: translate(30%, -30%);">
-                </div>
+    {{-- HEADER --}}
+    <div class="mb-6">
+        <p class="text-[10px] font-bold uppercase tracking-[0.2em] mb-1"
+           style="color: rgba(0,140,165,0.55);">
+            Panel de Control
+        </p>
+        <div class="flex items-center justify-between gap-4 flex-wrap">
+            <div>
+                <h1 class="text-2xl font-black text-slate-800 tracking-tight leading-none">
+                    ¡Hola, <span style="color: rgb(0,140,165);">{{ Auth::user()->username }}</span>!
+                </h1>
+                <p class="text-xs text-slate-400 mt-1 font-medium">
+                    Bienvenido al sistema de gestión AUNA · {{ now()->translatedFormat('l, d F Y') }}
+                </p>
+            </div>
 
-                {{-- Glow verde --}}
-                <div class="absolute bottom-0 left-0 w-64 h-64 rounded-full pointer-events-none"
-                    style="background: radial-gradient(circle, rgba(190,214,0,0.08) 0%, transparent 70%); transform: translate(-30%, 30%);">
-                </div>
-
-                {{-- Dot pattern --}}
-                <div class="absolute inset-0 opacity-[0.03] pointer-events-none"
-                    style="background-image: radial-gradient(circle at 1px 1px, rgba(0,176,202,1) 1px, transparent 0); background-size: 24px 24px;">
-                </div>
-
-                <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-
-                    {{-- Saludo --}}
-                    <div class="flex-1">
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="text-[10px] font-black uppercase tracking-[0.25em] px-3 py-1 rounded-full"
-                                style="background: rgba(0,176,202,0.15); color: rgb(0,176,202); border: 1px solid rgba(0,176,202,0.2);">
-                                Panel de Control
-                            </span>
-                            <span class="flex items-center gap-1.5 text-[10px] font-black uppercase tracking-[0.2em]"
-                                style="color: rgba(190,214,0,0.7);">
-                                <span class="w-1.5 h-1.5 rounded-full animate-pulse"
-                                    style="background: rgb(190,214,0);"></span>
-                                En línea
-                            </span>
-                        </div>
-
-                        {{-- Saludo --}}
-                        <h1 class="text-3xl sm:text-4xl font-black tracking-tight leading-none mb-3"
-                            style="color: #0a1628;">
-                            ¡Hola,
-                            <span style="color: rgb(0,176,202);">{{ Auth::user()->username }}</span>!
-                        </h1>
-
-                        <p class="text-sm sm:text-base font-medium leading-relaxed max-w-xl"
-                            style="color: rgba(10,22,40,0.55);">
-                            Bienvenido al sistema principal de
-                            <span class="font-black" style="color: rgb(0,140,165);">AUNA</span>.
-                            Tienes acceso a las herramientas esenciales para tu gestión.
-                        </p>
-
-                        {{-- Línea decorativa --}}
-                        <div class="flex items-center gap-2 mt-5">
-                            <div class="h-px w-8 rounded-full" style="background: rgb(0,176,202);"></div>
-                            <div class="h-px w-4 rounded-full" style="background: rgb(190,214,0);"></div>
-                            <div class="h-px w-2 rounded-full" style="background: rgba(255,255,255,0.2);"></div>
-                        </div>
-                    </div>
-
-                    <span class="block text-3xl sm:text-4xl font-black tabular-nums tracking-tight" id="liveClock"
-                        style="color: rgb(0,140,165);">
-                        <span class="block text-[10px] font-black uppercase tracking-[0.2em] mb-1"
-                            style="color: rgba(0,176,202,0.7);">
-                            {{ now()->translatedFormat('l') }}
-                        </span>
-                        <span class="block text-xs font-bold mb-3" style="color: rgba(255,255,255,0.4);">
-                            {{ now()->translatedFormat('d F, Y') }}
-                        </span>
-                        <span class="block text-3xl sm:text-4xl font-black tabular-nums tracking-tight" id="liveClock"
-                            style="color: rgb(0,176,202); text-shadow: 0 0 30px rgba(0,176,202,0.4);">
-                            {{ now()->format('H:i:s') }}
-                        </span>
-                        <div class="mt-3 h-px w-full rounded-full"
-                            style="background: linear-gradient(90deg, transparent, rgba(0,176,202,0.4), transparent);">
-                        </div>
-                        <span class="block text-[10px] font-bold mt-2 uppercase tracking-widest"
-                            style="color: rgba(190,214,0,0.6);">
-                            Sistema v1.0
-                        </span>
-                </div>
+            {{-- Reloj --}}
+            <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white"
+                 style="border: 1px solid #e8edf2;">
+                <span class="w-1.5 h-1.5 rounded-full animate-pulse flex-shrink-0"
+                      style="background: rgb(190,214,0);"></span>
+                <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">En línea</span>
+                <div class="w-px h-3 bg-slate-200 mx-1"></div>
+                <span class="text-[12px] font-black tabular-nums" id="liveClock"
+                      style="color: rgb(0,140,165);">
+                    {{ now()->format('H:i:s') }}
+                </span>
             </div>
         </div>
     </div>
+
+    {{-- STAT CARDS --}}
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+
+        <div class="bg-white rounded-lg px-4 py-3.5 flex items-center gap-3"
+             style="border: 1px solid #e8edf2;">
+            <div class="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
+                 style="background: rgba(0,176,202,0.08);">
+                <span class="material-symbols-outlined text-[20px]" style="color: rgb(0,176,202);">person</span>
+            </div>
+            <div class="min-w-0">
+                <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400 leading-none">Usuario</p>
+                <p class="text-sm font-black text-slate-700 mt-0.5 leading-none truncate">
+                    {{ Auth::user()->username }}
+                </p>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg px-4 py-3.5 flex items-center gap-3"
+             style="border: 1px solid #e8edf2;">
+            <div class="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
+                 style="background: rgba(190,214,0,0.1);">
+                <span class="material-symbols-outlined text-[20px]" style="color: rgb(140,170,0);">calendar_today</span>
+            </div>
+            <div>
+                <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400 leading-none">Fecha</p>
+                <p class="text-sm font-black text-slate-700 mt-0.5 leading-none">
+                    {{ now()->format('d/m/Y') }}
+                </p>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg px-4 py-3.5 flex items-center gap-3"
+             style="border: 1px solid #e8edf2;">
+            <div class="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
+                 style="background: rgba(0,176,202,0.08);">
+                <span class="material-symbols-outlined text-[20px]" style="color: rgb(0,176,202);">schedule</span>
+            </div>
+            <div>
+                <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400 leading-none">Hora</p>
+                <p class="text-sm font-black tabular-nums mt-0.5 leading-none" id="liveClockCard"
+                   style="color: rgb(0,140,165);">
+                    {{ now()->format('H:i') }}
+                </p>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg px-4 py-3.5 flex items-center gap-3"
+             style="border: 1px solid #e8edf2;">
+            <div class="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
+                 style="background: rgba(190,214,0,0.1);">
+                <span class="material-symbols-outlined text-[20px]" style="color: rgb(140,170,0);">verified</span>
+            </div>
+            <div>
+                <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400 leading-none">Sistema</p>
+                <p class="text-sm font-black text-slate-700 mt-0.5 leading-none">v1.0 · Activo</p>
+            </div>
+        </div>
+
     </div>
 
-    @push('scripts')
-        <script>
-            // Reloj en tiempo real
-            function updateClock() {
-                const now = new Date();
-                const h = String(now.getHours()).padStart(2, '0');
-                const m = String(now.getMinutes()).padStart(2, '0');
-                const s = String(now.getSeconds()).padStart(2, '0');
-                const el = document.getElementById('liveClock');
-                if (el) el.textContent = `${h}:${m}:${s}`;
-            }
-            setInterval(updateClock, 1000);
-            updateClock();
-        </script>
-    @endpush
+</div>
+
+@push('scripts')
+<script>
+    function updateClock() {
+        const now = new Date();
+        const hms = [now.getHours(), now.getMinutes(), now.getSeconds()]
+            .map(n => String(n).padStart(2, '0')).join(':');
+        const hm  = hms.slice(0, 5);
+        const el1 = document.getElementById('liveClock');
+        const el2 = document.getElementById('liveClockCard');
+        if (el1) el1.textContent = hms;
+        if (el2) el2.textContent = hm;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+</script>
+@endpush
 
 @endsection

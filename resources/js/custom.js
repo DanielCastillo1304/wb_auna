@@ -63,13 +63,13 @@ $(document).ready(function () {
     $(".menubar").click(function () {
         if (sidebarVisible) {
             // Ocultar el sidebar
-            $(".sidebar-panel").css("transform", "translateX(-260px)");
+            $(".sidebar-panel").css("transform", "translateX(-240px)");
             $(".main-panel").css("margin-left", "0px");
             $(this).find("span").text("close");
         } else {
             // Mostrar el sidebar
             $(".sidebar-panel").css("transform", "translateX(0)");
-            $(".main-panel").css("margin-left", "260px");
+            $(".main-panel").css("margin-left", "240px");
             $(this).find("span").text("menu");
         }
         sidebarVisible = !sidebarVisible;

@@ -6,10 +6,9 @@ window.AlertService = {
     container: null,
 
     init() {
-        // Crea el contenedor si no existe en el DOM
         if (!$("#alertContainer").length) {
             $("body").prepend(
-                '<div id="alertContainer" class="fixed top-4 right-4 z-50 w-full max-w-sm"></div>',
+                '<div id="alertContainer" class="fixed top-4 right-4 z-[200] w-full max-w-sm space-y-2 pointer-events-none"></div>',
             );
         }
         this.container = $("#alertContainer");
@@ -17,24 +16,36 @@ window.AlertService = {
 
     types: {
         success: {
-            class: "bg-emerald-50 border-emerald-400 text-emerald-800",
-            icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>',
-            animate: "animate-slide-in",
+            icon: "check_circle",
+            iconColor: "rgb(0,176,202)",
+            borderColor: "rgba(0,176,202,0.3)",
+            bgColor: "rgba(0,176,202,0.06)",
+            textColor: "#0a4a5a",
+            accentColor: "rgb(0,176,202)",
         },
         error: {
-            class: "bg-rose-50 border-rose-400 text-rose-800",
-            icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>',
-            animate: "animate-shake",
+            icon: "error",
+            iconColor: "rgb(220,50,50)",
+            borderColor: "rgba(220,50,50,0.25)",
+            bgColor: "rgba(220,50,50,0.05)",
+            textColor: "#5a0a0a",
+            accentColor: "rgb(220,50,50)",
         },
         warning: {
-            class: "bg-amber-50 border-amber-400 text-amber-800",
-            icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>',
-            animate: "",
+            icon: "warning",
+            iconColor: "rgb(217,119,6)",
+            borderColor: "rgba(245,158,11,0.25)",
+            bgColor: "rgba(245,158,11,0.05)",
+            textColor: "#5a3a0a",
+            accentColor: "rgb(217,119,6)",
         },
         waiting: {
-            class: "bg-amber-50 border-amber-400 text-amber-800",
-            icon: '<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>',
-            animate: "",
+            icon: "sync",
+            iconColor: "rgb(190,214,0)",
+            borderColor: "rgba(190,214,0,0.3)",
+            bgColor: "rgba(190,214,0,0.05)",
+            textColor: "#3a4a00",
+            accentColor: "rgb(190,214,0)",
         },
     },
 
@@ -43,48 +54,112 @@ window.AlertService = {
 
         const config = this.types[type] ?? this.types.error;
         const isWaiting = type === "waiting";
+        const id = `alert-${Date.now()}`;
 
         const $alert = $(`
-            <div class="alert-item ${config.class} ${config.animate} border-l-4 p-4 mb-3 rounded-xl shadow-xl flex items-center transition-all duration-300" role="alert">
-                <svg class="w-6 h-6 mr-3 flex-shrink-0 ${isWaiting ? "animate-spin" : ""}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    ${config.icon}
-                </svg>
-                <div class="flex-1 font-semibold text-sm">${message}</div>
-                ${
-                    !isWaiting
-                        ? `
-                    <button class="close-alert ml-auto pl-3 hover:opacity-70 transition-opacity">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                        </svg>
+                <div id="${id}"
+                    class="alert-item pointer-events-auto"
+                    style="
+                        background: white;
+                        border: 1px solid ${config.borderColor};
+                        border-left: 3px solid ${config.accentColor};
+                        border-radius: 10px;
+                        box-shadow: 0 4px 16px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+                        padding: 12px 14px;
+                        display: flex;
+                        align-items: flex-start;
+                        gap: 10px;
+                        opacity: 0;
+                        transform: translateX(16px);
+                        transition: opacity 0.25s ease, transform 0.25s ease;
+                    "
+                    role="alert">
+
+                    <span class="material-symbols-outlined flex-shrink-0 ${isWaiting ? "animate-spin" : ""}"
+                        style="font-size: 18px; color: ${config.iconColor}; margin-top: 1px;">
+                        ${config.icon}
+                    </span>
+
+                    <div class="flex-1 min-w-0">
+                        <p style="font-size: 13px; font-weight: 600; color: #1e293b; line-height: 1.4; margin: 0;">
+                            ${message}
+                        </p>
+                    </div>
+
+                    ${
+                        !isWaiting
+                            ? `
+                    <button class="close-alert flex-shrink-0 w-5 h-5 flex items-center justify-center rounded transition-all"
+                            style="color: #94a3b8; margin-top: 1px;"
+                            onmouseover="this.style.background='#f1f5f9'; this.style.color='#475569';"
+                            onmouseout="this.style.background=''; this.style.color='#94a3b8';">
+                        <span class="material-symbols-outlined" style="font-size: 15px;">close</span>
                     </button>`
-                        : ""
-                }
-            </div>
-        `);
+                            : ""
+                    }
+                </div>
+            `);
 
         this.container.append($alert);
-        $alert.find(".close-alert").on("click", () => this.hide($alert));
 
+        // Animar entrada
+        requestAnimationFrame(() => {
+            $alert.css({ opacity: "1", transform: "translateX(0)" });
+        });
+
+        // Click en cerrar
+        $alert.find(".close-alert").on("click", () => this._hide($alert));
+
+        // Auto-dismiss
         if (!isWaiting && duration > 0) {
-            setTimeout(() => this.hide($alert), duration);
+            const timer = setTimeout(() => this._hide($alert), duration);
+            $alert.data("timer", timer);
+
+            // Barra de progreso
+            const $bar = $(`
+                <div style="
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    height: 2px;
+                    width: 100%;
+                    background: ${config.accentColor};
+                    opacity: 0.4;
+                    border-radius: 0 0 10px 10px;
+                    transition: width ${duration}ms linear;
+                "></div>
+            `);
+            $alert.css("position", "relative").append($bar);
+            requestAnimationFrame(() => {
+                setTimeout(() => $bar.css("width", "0%"), 50);
+            });
         }
 
-        return $alert; // útil para poder cerrarla manualmente
+        return $alert;
     },
 
-    hide($el) {
+    _hide($el) {
         if (!$el || !$el.length) return;
-        $el.addClass("opacity-0 -translate-y-2");
-        setTimeout(() => $el.remove(), 300);
+        clearTimeout($el.data("timer"));
+        $el.css({ opacity: "0", transform: "translateX(16px)" });
+        setTimeout(() => {
+            $el.css({ "max-height": $el.outerHeight(), overflow: "hidden" });
+            $el.animate(
+                { "max-height": 0, marginBottom: 0, padding: 0 },
+                200,
+                function () {
+                    $el.remove();
+                },
+            );
+        }, 250);
     },
 
     hideAll() {
-        this.container?.find(".alert-item").each((_, el) => this.hide($(el)));
+        this.container?.find(".alert-item").each((_, el) => this._hide($(el)));
     },
 };
 
-// Aliases globales — úsalos en cualquier página
+// Aliases globales
 window.showSuccess = (msg, duration) =>
     AlertService.show("success", msg, duration);
 window.showError = (msg, duration) => AlertService.show("error", msg, duration);
@@ -93,7 +168,7 @@ window.showWarning = (msg, duration) =>
 window.showWaiting = (msg) => AlertService.show("waiting", msg, 0);
 window.hideAlerts = () => AlertService.hideAll();
 
-// handleAjaxError también global
+// handleAjaxError global
 window.handleAjaxError = function (xhr) {
     if (xhr.status === 422) {
         const errors = xhr.responseJSON?.errors ?? {};
@@ -102,20 +177,19 @@ window.handleAjaxError = function (xhr) {
         Object.entries(errors).forEach(([field, messages]) => {
             const $span = $(`.error-message[data-error-for="${field}"]`);
             if ($span.length) {
-                $span
-                    .text(messages[0])
-                    .removeClass("hidden")
-                    .addClass("animate-pulse");
-                setTimeout(() => $span.addClass("hidden").text(""), 4000);
+                $span.text(messages[0]).removeClass("hidden");
+                setTimeout(() => $span.addClass("hidden").text(""), 5000);
             }
         });
 
-        showError("Por favor, corrige los errores.");
+        showError("Por favor, corrige los errores marcados.");
     } else {
         const map = {
+            401: "No autorizado",
             403: "Sin permisos para esta acción",
             404: "Recurso no encontrado",
-            500: "Error del servidor",
+            429: "Demasiados intentos, espera un momento",
+            500: "Error interno del servidor",
         };
         showError(
             xhr.responseJSON?.message ?? map[xhr.status] ?? "Error inesperado",

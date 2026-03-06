@@ -1,11 +1,11 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./resources/js/app.js":
+/***/ "./resources/js/app.js"
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -16,13 +16,13 @@ __webpack_require__(/*! ./required_temp */ "./resources/js/required_temp.js");
 __webpack_require__(/*! ./custom */ "./resources/js/custom.js");
 __webpack_require__(/*! ./services/alert */ "./resources/js/services/alert.js");
 
-/***/ }),
+/***/ },
 
-/***/ "./resources/js/custom.js":
+/***/ "./resources/js/custom.js"
 /*!********************************!*\
   !*** ./resources/js/custom.js ***!
   \********************************/
-/***/ (() => {
+() {
 
 $(document).ready(function () {
   // MENU
@@ -79,13 +79,13 @@ $(document).ready(function () {
   $(".menubar").click(function () {
     if (sidebarVisible) {
       // Ocultar el sidebar
-      $(".sidebar-panel").css("transform", "translateX(-260px)");
+      $(".sidebar-panel").css("transform", "translateX(-240px)");
       $(".main-panel").css("margin-left", "0px");
       $(this).find("span").text("close");
     } else {
       // Mostrar el sidebar
       $(".sidebar-panel").css("transform", "translateX(0)");
-      $(".main-panel").css("margin-left", "260px");
+      $(".main-panel").css("margin-left", "240px");
       $(this).find("span").text("menu");
     }
     sidebarVisible = !sidebarVisible;
@@ -99,13 +99,13 @@ $(document).ready(function () {
   });
 });
 
-/***/ }),
+/***/ },
 
-/***/ "./resources/js/required_temp.js":
+/***/ "./resources/js/required_temp.js"
 /*!***************************************!*\
   !*** ./resources/js/required_temp.js ***!
   \***************************************/
-/***/ (() => {
+() {
 
 // required_temp.js
 
@@ -148,13 +148,13 @@ $(document).ready(function () {
   }, 400);
 });
 
-/***/ }),
+/***/ },
 
-/***/ "./resources/js/services/alert.js":
+/***/ "./resources/js/services/alert.js"
 /*!****************************************!*\
   !*** ./resources/js/services/alert.js ***!
   \****************************************/
-/***/ (() => {
+() {
 
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -169,32 +169,43 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 window.AlertService = {
   container: null,
   init: function init() {
-    // Crea el contenedor si no existe en el DOM
     if (!$("#alertContainer").length) {
-      $("body").prepend('<div id="alertContainer" class="fixed top-4 right-4 z-50 w-full max-w-sm"></div>');
+      $("body").prepend('<div id="alertContainer" class="fixed top-4 right-4 z-[200] w-full max-w-sm space-y-2 pointer-events-none"></div>');
     }
     this.container = $("#alertContainer");
   },
   types: {
     success: {
-      "class": "bg-emerald-50 border-emerald-400 text-emerald-800",
-      icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>',
-      animate: "animate-slide-in"
+      icon: "check_circle",
+      iconColor: "rgb(0,176,202)",
+      borderColor: "rgba(0,176,202,0.3)",
+      bgColor: "rgba(0,176,202,0.06)",
+      textColor: "#0a4a5a",
+      accentColor: "rgb(0,176,202)"
     },
     error: {
-      "class": "bg-rose-50 border-rose-400 text-rose-800",
-      icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>',
-      animate: "animate-shake"
+      icon: "error",
+      iconColor: "rgb(220,50,50)",
+      borderColor: "rgba(220,50,50,0.25)",
+      bgColor: "rgba(220,50,50,0.05)",
+      textColor: "#5a0a0a",
+      accentColor: "rgb(220,50,50)"
     },
     warning: {
-      "class": "bg-amber-50 border-amber-400 text-amber-800",
-      icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>',
-      animate: ""
+      icon: "warning",
+      iconColor: "rgb(217,119,6)",
+      borderColor: "rgba(245,158,11,0.25)",
+      bgColor: "rgba(245,158,11,0.05)",
+      textColor: "#5a3a0a",
+      accentColor: "rgb(217,119,6)"
     },
     waiting: {
-      "class": "bg-amber-50 border-amber-400 text-amber-800",
-      icon: '<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>',
-      animate: ""
+      icon: "sync",
+      iconColor: "rgb(190,214,0)",
+      borderColor: "rgba(190,214,0,0.3)",
+      bgColor: "rgba(190,214,0,0.05)",
+      textColor: "#3a4a00",
+      accentColor: "rgb(190,214,0)"
     }
   },
   show: function show(type, message) {
@@ -204,35 +215,72 @@ window.AlertService = {
     this.init();
     var config = (_this$types$type = this.types[type]) !== null && _this$types$type !== void 0 ? _this$types$type : this.types.error;
     var isWaiting = type === "waiting";
-    var $alert = $("\n            <div class=\"alert-item ".concat(config["class"], " ").concat(config.animate, " border-l-4 p-4 mb-3 rounded-xl shadow-xl flex items-center transition-all duration-300\" role=\"alert\">\n                <svg class=\"w-6 h-6 mr-3 flex-shrink-0 ").concat(isWaiting ? "animate-spin" : "", "\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\">\n                    ").concat(config.icon, "\n                </svg>\n                <div class=\"flex-1 font-semibold text-sm\">").concat(message, "</div>\n                ").concat(!isWaiting ? "\n                    <button class=\"close-alert ml-auto pl-3 hover:opacity-70 transition-opacity\">\n                        <svg class=\"w-5 h-5\" fill=\"currentColor\" viewBox=\"0 0 20 20\">\n                            <path fill-rule=\"evenodd\" d=\"M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z\" clip-rule=\"evenodd\"/>\n                        </svg>\n                    </button>" : "", "\n            </div>\n        "));
+    var id = "alert-".concat(Date.now());
+    var $alert = $("\n                <div id=\"".concat(id, "\"\n                    class=\"alert-item pointer-events-auto\"\n                    style=\"\n                        background: white;\n                        border: 1px solid ").concat(config.borderColor, ";\n                        border-left: 3px solid ").concat(config.accentColor, ";\n                        border-radius: 10px;\n                        box-shadow: 0 4px 16px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);\n                        padding: 12px 14px;\n                        display: flex;\n                        align-items: flex-start;\n                        gap: 10px;\n                        opacity: 0;\n                        transform: translateX(16px);\n                        transition: opacity 0.25s ease, transform 0.25s ease;\n                    \"\n                    role=\"alert\">\n\n                    <span class=\"material-symbols-outlined flex-shrink-0 ").concat(isWaiting ? "animate-spin" : "", "\"\n                        style=\"font-size: 18px; color: ").concat(config.iconColor, "; margin-top: 1px;\">\n                        ").concat(config.icon, "\n                    </span>\n\n                    <div class=\"flex-1 min-w-0\">\n                        <p style=\"font-size: 13px; font-weight: 600; color: #1e293b; line-height: 1.4; margin: 0;\">\n                            ").concat(message, "\n                        </p>\n                    </div>\n\n                    ").concat(!isWaiting ? "\n                    <button class=\"close-alert flex-shrink-0 w-5 h-5 flex items-center justify-center rounded transition-all\"\n                            style=\"color: #94a3b8; margin-top: 1px;\"\n                            onmouseover=\"this.style.background='#f1f5f9'; this.style.color='#475569';\"\n                            onmouseout=\"this.style.background=''; this.style.color='#94a3b8';\">\n                        <span class=\"material-symbols-outlined\" style=\"font-size: 15px;\">close</span>\n                    </button>" : "", "\n                </div>\n            "));
     this.container.append($alert);
-    $alert.find(".close-alert").on("click", function () {
-      return _this.hide($alert);
+
+    // Animar entrada
+    requestAnimationFrame(function () {
+      $alert.css({
+        opacity: "1",
+        transform: "translateX(0)"
+      });
     });
+
+    // Click en cerrar
+    $alert.find(".close-alert").on("click", function () {
+      return _this._hide($alert);
+    });
+
+    // Auto-dismiss
     if (!isWaiting && duration > 0) {
-      setTimeout(function () {
-        return _this.hide($alert);
+      var timer = setTimeout(function () {
+        return _this._hide($alert);
       }, duration);
+      $alert.data("timer", timer);
+
+      // Barra de progreso
+      var $bar = $("\n                <div style=\"\n                    position: absolute;\n                    bottom: 0;\n                    left: 0;\n                    height: 2px;\n                    width: 100%;\n                    background: ".concat(config.accentColor, ";\n                    opacity: 0.4;\n                    border-radius: 0 0 10px 10px;\n                    transition: width ").concat(duration, "ms linear;\n                \"></div>\n            "));
+      $alert.css("position", "relative").append($bar);
+      requestAnimationFrame(function () {
+        setTimeout(function () {
+          return $bar.css("width", "0%");
+        }, 50);
+      });
     }
-    return $alert; // útil para poder cerrarla manualmente
+    return $alert;
   },
-  hide: function hide($el) {
+  _hide: function _hide($el) {
     if (!$el || !$el.length) return;
-    $el.addClass("opacity-0 -translate-y-2");
+    clearTimeout($el.data("timer"));
+    $el.css({
+      opacity: "0",
+      transform: "translateX(16px)"
+    });
     setTimeout(function () {
-      return $el.remove();
-    }, 300);
+      $el.css({
+        "max-height": $el.outerHeight(),
+        overflow: "hidden"
+      });
+      $el.animate({
+        "max-height": 0,
+        marginBottom: 0,
+        padding: 0
+      }, 200, function () {
+        $el.remove();
+      });
+    }, 250);
   },
   hideAll: function hideAll() {
     var _this$container,
       _this2 = this;
     (_this$container = this.container) === null || _this$container === void 0 || _this$container.find(".alert-item").each(function (_, el) {
-      return _this2.hide($(el));
+      return _this2._hide($(el));
     });
   }
 };
 
-// Aliases globales — úsalos en cualquier página
+// Aliases globales
 window.showSuccess = function (msg, duration) {
   return AlertService.show("success", msg, duration);
 };
@@ -249,7 +297,7 @@ window.hideAlerts = function () {
   return AlertService.hideAll();
 };
 
-// handleAjaxError también global
+// handleAjaxError global
 window.handleAjaxError = function (xhr) {
   if (xhr.status === 422) {
     var _xhr$responseJSON$err, _xhr$responseJSON;
@@ -261,44 +309,46 @@ window.handleAjaxError = function (xhr) {
         messages = _ref2[1];
       var $span = $(".error-message[data-error-for=\"".concat(field, "\"]"));
       if ($span.length) {
-        $span.text(messages[0]).removeClass("hidden").addClass("animate-pulse");
+        $span.text(messages[0]).removeClass("hidden");
         setTimeout(function () {
           return $span.addClass("hidden").text("");
-        }, 4000);
+        }, 5000);
       }
     });
-    showError("Por favor, corrige los errores.");
+    showError("Por favor, corrige los errores marcados.");
   } else {
     var _ref3, _xhr$responseJSON$mes, _xhr$responseJSON2;
     var map = {
+      401: "No autorizado",
       403: "Sin permisos para esta acción",
       404: "Recurso no encontrado",
-      500: "Error del servidor"
+      429: "Demasiados intentos, espera un momento",
+      500: "Error interno del servidor"
     };
     showError((_ref3 = (_xhr$responseJSON$mes = (_xhr$responseJSON2 = xhr.responseJSON) === null || _xhr$responseJSON2 === void 0 ? void 0 : _xhr$responseJSON2.message) !== null && _xhr$responseJSON$mes !== void 0 ? _xhr$responseJSON$mes : map[xhr.status]) !== null && _ref3 !== void 0 ? _ref3 : "Error inesperado");
   }
 };
 
-/***/ }),
+/***/ },
 
-/***/ "./resources/css/app.css":
+/***/ "./resources/css/app.css"
 /*!*******************************!*\
   !*** ./resources/css/app.css ***!
   \*******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/jquery/dist-module/jquery.module.js":
+/***/ "./node_modules/jquery/dist-module/jquery.module.js"
 /*!**********************************************************!*\
   !*** ./node_modules/jquery/dist-module/jquery.module.js ***!
   \**********************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -9981,7 +10031,7 @@ var jQuery = jQueryFactory( window, true );
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (jQuery);
 
 
-/***/ })
+/***/ }
 
 /******/ 	});
 /************************************************************************/
@@ -10003,6 +10053,12 @@ var jQuery = jQueryFactory( window, true );
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
+/******/ 		if (!(moduleId in __webpack_modules__)) {
+/******/ 			delete __webpack_module_cache__[moduleId];
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
+/******/ 		}
 /******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Return the exports of the module

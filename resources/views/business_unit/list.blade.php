@@ -4,132 +4,138 @@
 
 @section('content')
 
-<div class="min-h-screen" style="background: #f0f9fb;">
-    <div class="container mx-auto px-4 sm:px-6 py-8">
-
-        {{-- HEADER --}}
-        <div class="mb-8 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
-            <div>
-                <nav class="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.2em] mb-2"
-                     style="color: rgba(0,176,202,0.6);">
-                    <a href="{{ route('home') }}"
-                       class="transition-colors hover:opacity-100"
-                       style="color: rgba(0,176,202,0.6);"
-                       onmouseover="this.style.color='rgb(0,176,202)'"
-                       onmouseout="this.style.color='rgba(0,176,202,0.6)'">
-                        Dashboard
-                    </a>
-                    <span class="material-symbols-outlined text-[12px]">chevron_right</span>
-                    <span style="color: rgb(0,140,165);">Listado</span>
-                </nav>
-                <div class="flex items-center gap-3">
-                    <h1 class="text-3xl font-black text-slate-800 tracking-tight leading-none">
-                        {{ $extend['title'] }}
-                    </h1>
-                    <span id="totalRecords"
-                          class="inline-flex items-center px-2.5 py-1 text-xs font-black rounded-lg tabular-nums"
-                          style="background: rgba(0,176,202,0.1); color: rgb(0,140,165); border: 1px solid rgba(0,176,202,0.2);">
-                        {{ $extend['totalRecord'] ?? 0 }}
-                    </span>
-                </div>
-            </div>
-
-            <a href="{{ route($extend['controller'] . '.form') }}"
-                class="w-full lg:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 text-white text-xs font-black uppercase tracking-widest rounded-xl transition-all duration-200 active:scale-95"
-                style="background: linear-gradient(135deg, rgb(0,176,202) 0%, rgb(0,140,165) 100%); box-shadow: 0 4px 14px rgba(0,176,202,0.3);"
-                onmouseover="this.style.background='linear-gradient(135deg, rgb(190,214,0) 0%, rgb(160,185,0) 100%)'; this.style.boxShadow='0 4px 14px rgba(190,214,0,0.3)';"
-                onmouseout="this.style.background='linear-gradient(135deg, rgb(0,176,202) 0%, rgb(0,140,165) 100%)'; this.style.boxShadow='0 4px 14px rgba(0,176,202,0.3)';">
-                <span class="material-symbols-outlined text-[18px]">add</span>
-                Agregar
-            </a>
-        </div>
+<div class="min-h-screen" style="background: #f4f6f8;">
+    <div class="px-6 lg:px-10 py-6">
 
         {{-- ALERT CONTAINER --}}
-        <div id="alertContainer" class="fixed top-5 right-5 z-[100] w-full max-w-sm pointer-events-none"></div>
+        <div id="alertContainer" class="fixed top-20 right-5 z-[100] w-full max-w-sm pointer-events-none"></div>
 
-        {{-- BUSCADOR --}}
-        <div class="bg-white rounded-2xl p-2 mb-4 flex gap-2"
-             style="border: 1px solid rgba(0,176,202,0.15); box-shadow: 0 2px 12px rgba(0,176,202,0.06);">
-            <div class="relative flex-1 group">
-                <span class="absolute left-3.5 top-1/2 -translate-y-1/2 material-symbols-outlined text-[20px] transition-colors"
-                      style="color: rgba(0,176,202,0.4);"
-                      id="searchIcon">
-                    search
-                </span>
-                <input type="text" id="searchInput"
-                    placeholder="Buscar registros por nombre..."
-                    class="w-full h-11 pl-11 pr-4 rounded-xl border border-transparent text-sm font-medium text-slate-700 placeholder:font-normal outline-none transition-all"
-                    style="background: rgba(0,176,202,0.04); placeholder-color: rgba(0,176,202,0.3);"
-                    onfocus="this.style.background='white'; this.style.borderColor='rgba(0,176,202,0.3)'; this.style.boxShadow='0 0 0 4px rgba(0,176,202,0.06)'; document.getElementById('searchIcon').style.color='rgb(0,176,202)';"
-                    onblur="this.style.background='rgba(0,176,202,0.04)'; this.style.borderColor='transparent'; this.style.boxShadow='none'; document.getElementById('searchIcon').style.color='rgba(0,176,202,0.4)';">
+        {{-- FILA 1: TÍTULO --}}
+        <div class="mb-6">
+            <div class="flex items-center justify-between gap-4">
+                <div class="space-y-2">
+                    <h1 class="text-xl font-bold text-slate-800 leading-none">
+                        {{ $extend['title'] }}
+                    </h1>
+                    <p class="text-xs text-gray-500  mt-0.5 font-normal">
+                        Gestiona los registros de {{ strtolower($extend['title']) }}.
+                    </p>
+                </div>
+
+                <a href="{{ route($extend['controller'] . '.form') }}"
+                    class="inline-flex items-center gap-1.5 px-4 py-2 text-white text-sm rounded-lg transition-all duration-200 active:scale-95 flex-shrink-0"
+                    style="background: rgb(0,176,202); box-shadow: 0 2px 8px rgba(0,176,202,0.3);"
+                    onmouseover="this.style.background='rgb(190,214,0)'; this.style.boxShadow='0 2px 8px rgba(190,214,0,0.3)'; this.style.color='white';"
+                    onmouseout="this.style.background='rgb(0,176,202)'; this.style.boxShadow='0 2px 8px rgba(0,176,202,0.3)'; this.style.color='white';">
+                    <span class="material-symbols-outlined text-[15px]">add</span>
+                    Nuevo registro
+                </a>
             </div>
-            <button id="btnClearSearch"
-                class="hidden flex-shrink-0 w-11 h-11 flex items-center justify-center rounded-xl border border-transparent transition-all active:scale-95"
-                style="background: rgba(0,176,202,0.06); color: rgba(0,176,202,0.5);"
-                onmouseover="this.style.background='rgba(0,176,202,0.12)'; this.style.color='rgb(0,176,202)';"
-                onmouseout="this.style.background='rgba(0,176,202,0.06)'; this.style.color='rgba(0,176,202,0.5)';"
-                title="Limpiar búsqueda">
-                <span class="material-symbols-outlined text-[20px]">close</span>
-            </button>
+        </div>
+
+        {{-- TOOLBAR --}}
+        <div class="bg-white rounded-lg px-4 py-3 mb-0 flex items-center gap-3"
+             style="border: 1px solid #e8edf2; border-bottom: none; border-radius: 8px 8px 0 0;">
+
+            {{-- Buscador --}}
+            <div class="flex items-center gap-2 px-3 py-1.5 rounded-md w-56"
+                 style="background: #f4f6f8; border: 1px solid #e2e8f0;">
+                <span class="material-symbols-outlined text-[16px] flex-shrink-0 transition-colors"
+                      id="searchIcon"
+                      style="color: #94a3b8;">search</span>
+                <input type="text" id="searchInput"
+                    placeholder="Buscar..."
+                    class="flex-1 text-sm text-slate-700 placeholder:text-slate-300 outline-none bg-transparent"
+                    onfocus="this.parentElement.style.borderColor='rgba(0,176,202,0.5)'; document.getElementById('searchIcon').style.color='rgb(0,176,202)';"
+                    onblur="this.parentElement.style.borderColor='#e2e8f0'; document.getElementById('searchIcon').style.color='#94a3b8';">
+                <button id="btnClearSearch"
+                    class="hidden flex-shrink-0 transition-colors -ms-2 mt-1"
+                    style="color: #94a3b8;"
+                    onmouseover="this.style.color='rgb(0,176,202)';"
+                    onmouseout="this.style.color='#94a3b8';">
+                    <span class="material-symbols-outlined text-[15px]">close</span>
+                </button>
+            </div>
+
+            {{-- Spacer --}}
+            <div class="flex-1"></div>
+
+            {{-- Info registros --}}
+            <p class="text-xs text-slate-400 font-medium hidden sm:block">
+                <span id="totalRecordsInfo" class="font-black text-slate-600">{{ $extend['totalRecord'] ?? 0 }}</span>
+                registros
+            </p>
         </div>
 
         {{-- TABLA --}}
-        <div class="bg-white rounded-2xl overflow-hidden relative"
-             style="border: 1px solid rgba(0,176,202,0.15); box-shadow: 0 4px 20px rgba(0,176,202,0.08);">
+        <div class="bg-white overflow-hidden relative"
+             style="border: 1px solid #e8edf2; border-radius: 0 0 8px 8px;">
 
             {{-- LOADING OVERLAY --}}
             <div id="loadingSpinner"
                 class="hidden absolute inset-0 z-20 flex flex-col items-center justify-center gap-3"
-                style="background: rgba(255,255,255,0.85); backdrop-filter: blur(2px);">
-                <div class="relative w-10 h-10">
-                    <div class="absolute inset-0 rounded-full border-4"
-                         style="border-color: rgba(0,176,202,0.15);"></div>
-                    <div class="absolute inset-0 rounded-full border-4 border-transparent animate-spin"
+                style="background: rgba(255,255,255,0.95); backdrop-filter: blur(2px);">
+                <div class="relative w-8 h-8">
+                    <div class="absolute inset-0 rounded-full border-2"
+                         style="border-color: rgba(0,176,202,0.1);"></div>
+                    <div class="absolute inset-0 rounded-full border-2 border-transparent animate-spin"
                          style="border-top-color: rgb(0,176,202);"></div>
-                    <div class="absolute inset-2 rounded-full border-4 border-transparent animate-spin"
-                         style="border-top-color: rgb(190,214,0); animation-direction: reverse; animation-duration: 0.7s;"></div>
+                    <div class="absolute inset-1 rounded-full border-2 border-transparent animate-spin"
+                         style="border-top-color: rgb(190,214,0); animation-direction: reverse; animation-duration: 0.6s;"></div>
                 </div>
-                <p class="text-[10px] font-black uppercase tracking-[0.25em] animate-pulse"
-                   style="color: rgba(0,176,202,0.7);">
-                    Cargando...
-                </p>
+                <p class="text-[10px] font-black uppercase tracking-[0.2em] animate-pulse"
+                   style="color: rgba(0,176,202,0.6);">Cargando...</p>
             </div>
 
             {{-- TABLE --}}
             <div class="overflow-x-auto custom-scrollbar">
-                <table id="recordContainer" class="w-full text-left border-collapse min-w-[600px]">
+                <table id="recordContainer" class="w-full text-left min-w-[500px]">
+
+                    {{-- HEAD --}}
                     <thead>
-                        <tr class="border-b" style="background: rgba(0,176,202,0.03); border-color: rgba(0,176,202,0.1);">
-                            <th class="px-6 py-4 text-[10px] font-black uppercase tracking-[0.2em]"
-                                style="color: rgba(0,140,165,0.7);">#</th>
-                            <th class="px-6 py-4 text-[10px] font-black uppercase tracking-[0.2em]"
-                                style="color: rgba(0,140,165,0.7);">Nombre</th>
-                            <th class="px-6 py-4 text-[10px] font-black uppercase tracking-[0.2em] text-center"
-                                style="color: rgba(0,140,165,0.7);">Acciones</th>
+                        <tr style="border-bottom: 1px solid #e8edf2; background: #f8fafc;">
+                            <th class="px-5 py-3 text-xs text-gray-500 w-16 font-semibold">#</th>
+                            <th class="px-5 py-3 text-xs text-gray-500 font-semibold">Name</th>
+                            <th class="px-5 py-3 text-xs text-gray-500 text-right w-28 font-semibold">Acciones</th>
                         </tr>
                     </thead>
-                    <tbody id="tableBody" class="divide-y" style="--tw-divide-opacity: 1;">
+
+                    {{-- BODY --}}
+                    <tbody id="tableBody">
+                        @for ($i = 0; $i < 8; $i++)
+                            <tr style="border-bottom: 1px solid #f1f5f9;">
+                                <td class="px-5 py-3">
+                                    <div class="h-3 w-7 rounded animate-pulse bg-slate-100"></div>
+                                </td>
+                                <td class="px-5 py-3">
+                                    <div class="h-3 rounded animate-pulse bg-slate-100"
+                                         style="width: {{ rand(30,60) }}%;"></div>
+                                </td>
+                                <td class="px-5 py-3">
+                                    <div class="flex justify-end gap-2">
+                                        <div class="h-6 w-6 rounded animate-pulse bg-slate-100"></div>
+                                        <div class="h-6 w-6 rounded animate-pulse bg-slate-100"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endfor
                     </tbody>
                 </table>
             </div>
 
             {{-- SIN RESULTADOS --}}
             <div id="noResults" class="hidden flex-col items-center justify-center py-16 px-6 text-center">
-                <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-4"
-                     style="background: rgba(0,176,202,0.07);">
-                    <span class="material-symbols-outlined text-[32px]"
-                          style="color: rgba(0,176,202,0.5);">search_off</span>
+                <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-3 bg-slate-100">
+                    <span class="material-symbols-outlined text-[20px] text-slate-400">search_off</span>
                 </div>
-                <h3 class="text-sm font-black text-slate-700 mb-1">Sin resultados</h3>
-                <p class="text-xs font-medium" style="color: rgba(0,176,202,0.6);">
-                    No se encontraron registros con ese criterio
-                </p>
+                <p class="text-sm font-black text-slate-600 mb-0.5">Sin resultados</p>
+                <p class="text-xs text-slate-400">No hay registros que coincidan con tu búsqueda</p>
             </div>
 
             {{-- PAGINACIÓN --}}
             <div id="paginationContainer"
-                 class="px-6 py-4 border-t"
-                 style="background: rgba(0,176,202,0.02); border-color: rgba(0,176,202,0.1);">
+                 class="px-5 py-3 border-t bg-slate-50/50"
+                 style="border-color: #e8edf2;">
             </div>
         </div>
 
@@ -139,45 +145,38 @@
 {{-- MODAL ELIMINAR --}}
 <div id="deleteModal"
     class="opacity-0 pointer-events-none fixed inset-0 z-50 flex items-center justify-center px-4 transition-all duration-300"
-    style="background: rgba(0,20,40,0.5); backdrop-filter: blur(4px);">
-    <div class="modal-content scale-95 opacity-0 w-full max-w-sm bg-white rounded-2xl overflow-hidden transition-all duration-300"
-         style="border: 1px solid rgba(0,176,202,0.15); box-shadow: 0 24px 60px rgba(0,20,40,0.3);">
+    style="background: rgba(0,20,40,0.4); backdrop-filter: blur(4px);">
+    <div class="modal-content scale-95 opacity-0 w-full max-w-[340px] bg-white rounded-xl overflow-hidden transition-all duration-300"
+         style="border: 1px solid #e8edf2; box-shadow: 0 20px 40px rgba(0,0,0,0.12);">
 
-        {{-- Header --}}
-        <div class="px-6 py-5 flex items-center gap-4"
-             style="background: linear-gradient(135deg, #0a1628 0%, #0d1f35 100%);">
-            <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-                 style="background: rgba(255,80,80,0.1); border: 1px solid rgba(255,80,80,0.2);">
-                <span class="material-symbols-outlined text-[20px]" style="color: rgb(255,100,100);">delete_forever</span>
+        <div class="px-5 py-4 flex items-center gap-3"
+             style="border-bottom: 1px solid #f1f5f9;">
+            <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 bg-red-50">
+                <span class="material-symbols-outlined text-[17px] text-red-500">delete_forever</span>
             </div>
             <div>
-                <p class="text-sm font-black text-white leading-none">¿Eliminar registro?</p>
-                <p class="text-[11px] mt-1" style="color: rgba(0,176,202,0.6);">Esta acción no se puede deshacer</p>
+                <p class="text-sm font-black text-slate-800 leading-none">¿Eliminar registro?</p>
+                <p class="text-[11px] text-slate-400 mt-0.5">Esta acción no se puede deshacer</p>
             </div>
         </div>
 
-        {{-- Body --}}
-        <div class="px-6 py-5">
+        <div class="px-5 py-4">
             <p class="text-sm text-slate-500 leading-relaxed">
-                Este registro se eliminará permanentemente del sistema.
+                Este registro se eliminará <strong class="text-slate-700">permanentemente</strong> del sistema.
             </p>
         </div>
 
-        {{-- Footer --}}
-        <div class="px-6 pb-5 flex gap-2.5">
+        <div class="px-5 pb-4 flex gap-2">
             <button id="btnCancelDelete"
-                class="flex-1 h-10 rounded-xl text-slate-600 text-xs font-black uppercase tracking-widest transition-all active:scale-95"
-                style="background: rgba(0,176,202,0.06); border: 1px solid rgba(0,176,202,0.15);"
-                onmouseover="this.style.background='rgba(0,176,202,0.12)';"
-                onmouseout="this.style.background='rgba(0,176,202,0.06)';">
+                class="flex-1 h-9 rounded-lg text-xs font-bold text-slate-600 transition-all active:scale-95 bg-slate-100 hover:bg-slate-200">
                 Cancelar
             </button>
             <button id="btnConfirmDelete"
-                class="flex-1 h-10 rounded-xl text-white text-xs font-black uppercase tracking-widest transition-all active:scale-95"
-                style="background: linear-gradient(135deg, rgb(220,50,50) 0%, rgb(185,30,30) 100%); box-shadow: 0 4px 14px rgba(220,50,50,0.3);"
-                onmouseover="this.style.background='linear-gradient(135deg, rgb(240,60,60) 0%, rgb(200,40,40) 100%)';"
-                onmouseout="this.style.background='linear-gradient(135deg, rgb(220,50,50) 0%, rgb(185,30,30) 100%)';">
-                Eliminar
+                class="flex-1 h-9 rounded-lg text-white text-xs font-bold transition-all active:scale-95"
+                style="background: rgb(220,50,50);"
+                onmouseover="this.style.background='rgb(200,30,30)';"
+                onmouseout="this.style.background='rgb(220,50,50)';">
+                Sí, eliminar
             </button>
         </div>
     </div>

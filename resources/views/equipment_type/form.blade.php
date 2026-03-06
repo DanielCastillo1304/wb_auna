@@ -3,125 +3,123 @@
 @section('title', (env('APP_NAME') ?? 'AUNA') . ' - ' . $extend['title'])
 
 @section('content')
+    <div class="min-h-screen" style="background: #f4f6f8;">
 
-<div class="min-h-screen" style="background: #f0f9fb;">
-    <div class="container mx-auto px-4 sm:px-6 py-8 max-w-3xl">
+        {{-- TOPBAR DEL FORM --}}
+        <div class="bg-white px-6 lg:px-10 py-4 flex items-center gap-4" style="border-bottom: 1px solid #e8edf2;">
 
-        {{-- HEADER --}}
-        <div class="mb-8 flex items-center gap-4">
+            {{-- Volver --}}
             <a href="{{ route($extend['controller'] . '.list') }}"
-                class="group flex items-center justify-center w-10 h-10 rounded-xl text-white flex-shrink-0 transition-all duration-200 active:scale-95"
-                style="background: rgba(0,176,202,0.12); border: 1px solid rgba(0,176,202,0.2);"
-                onmouseover="this.style.background='rgb(0,176,202)'; this.style.borderColor='rgb(0,176,202)';"
-                onmouseout="this.style.background='rgba(0,176,202,0.12)'; this.style.borderColor='rgba(0,176,202,0.2)';">
-                <span class="material-symbols-outlined text-[20px] group-hover:-translate-x-0.5 transition-transform"
-                      style="color: rgb(0,140,165);">arrow_back</span>
+                class="group flex items-center justify-center w-8 h-8 rounded-lg flex-shrink-0 transition-all duration-200 active:scale-95 bg-slate-100 hover:bg-slate-200">
+                <span
+                    class="material-symbols-outlined text-[17px] text-slate-500 group-hover:-translate-x-0.5 transition-transform">
+                    arrow_back
+                </span>
             </a>
-            <div>
-                <div class="flex items-center gap-2 mb-0.5">
-                    <span class="text-[10px] font-black uppercase tracking-[0.2em]"
-                          style="color: rgba(0,176,202,0.6);">
-                        {{ $extend['title'] }}
-                    </span>
-                    <span class="w-1 h-1 rounded-full" style="background: rgba(0,176,202,0.3);"></span>
-                    <span class="text-[10px] font-black uppercase tracking-[0.2em]"
-                          style="color: {{ isset($equipment_type) ? 'rgb(245,158,11)' : 'rgb(190,214,0)' }};">
-                        {{ isset($equipment_type) ? 'Editando' : 'Nuevo registro' }}
-                    </span>
-                </div>
-                <h1 class="text-2xl font-black text-slate-800 tracking-tight leading-none">
-                    {{ isset($equipment_type) ? 'Editar' : 'Crear' }}
-                    <span style="color: rgb(0,176,202);">{{ $extend['title_form'] }}</span>
-                </h1>
+
+            {{-- Separador --}}
+            <div class="w-px h-5 bg-slate-200 flex-shrink-0"></div>
+
+            {{-- Breadcrumb --}}
+            <div class="flex items-center gap-2 text-sm">
+                <a href="{{ route($extend['controller'] . '.list') }}"
+                    class="font-medium text-slate-400 hover:text-slate-600 transition-colors">
+                    {{ $extend['title'] }}
+                </a>
+                <span class="material-symbols-outlined text-[14px] text-slate-300">chevron_right</span>
+                <span class="font-semibold text-slate-700">
+                    {{ isset($equipment_type) ? 'Editar registro' : 'Nuevo registro' }}
+                </span>
             </div>
+
+            {{-- Badge estado --}}
+            <span class="ml-1 px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider"
+                style="{{ isset($equipment_type)
+                    ? 'background: rgba(245,158,11,0.1); color: rgb(217,119,6); border: 1px solid rgba(245,158,11,0.2);'
+                    : 'background: rgba(160,185,0,0.1); color: rgb(120,140,0); border: 1px solid rgba(160,185,0,0.2);' }}">
+                {{ isset($equipment_type) ? 'Editando' : 'Nuevo' }}
+            </span>
         </div>
 
         {{-- ALERT CONTAINER --}}
-        <div id="alertContainer" class="fixed top-20 right-5 z-[100] w-full max-w-sm pointer-events-none"></div>
+        <div id="alertContainer" class="fixed top-16 right-5 z-[100] w-full max-w-sm pointer-events-none"></div>
 
-        {{-- FORM --}}
-        <form id="mainForm" enctype="multipart/form-data" novalidate>
-            @csrf
-            <input type="hidden" id="recordId" value="{{ $equipment_type->codequipment_type ?? '' }}">
+        {{-- CONTENIDO --}}
+        <div class="px-6 lg:px-10 py-6 max-w-3xl">
 
-            {{-- CARD PRINCIPAL --}}
-            <div class="bg-white rounded-2xl overflow-hidden"
-                 style="border: 1px solid rgba(0,176,202,0.15); box-shadow: 0 4px 20px rgba(0,176,202,0.08);">
+            <form id="mainForm" enctype="multipart/form-data" novalidate>
+                @csrf
+                <input type="hidden" id="recordId" value="{{ $equipment_type->codequipment_type ?? '' }}">
 
-                {{-- CAMPOS --}}
-                <div class="p-6 sm:p-8 space-y-6">
+                {{-- CARD --}}
+                <div class="bg-white rounded-lg overflow-hidden"
+                    style="border: 1px solid #e8edf2; box-shadow: 0 1px 4px rgba(0,0,0,0.04);">
+                    {{-- CAMPOS --}}
+                    <div class="p-6 space-y-5">
 
-                    {{-- Campo: Nombre --}}
-                    <div class="space-y-1.5">
-                        <label for="name"
-                               class="flex items-center gap-1 text-xs font-black uppercase tracking-wider"
-                               style="color: rgb(0,140,165);">
-                            Nombre
-                            <span class="text-red-500">*</span>
-                        </label>
-                        <input
-                            type="text"
-                            id="name"
-                            name="name"
-                            required
-                            placeholder="Ej: Tipo de equipo A"
-                            value="{{ $equipment_type->name ?? '' }}"
-                            class="w-full h-11 px-4 text-sm text-slate-800 rounded-xl outline-none transition-all duration-200"
-                            style="background: rgba(0,176,202,0.04); border: 1px solid rgba(0,176,202,0.2);"
-                            onfocus="this.style.background='white'; this.style.borderColor='rgba(0,176,202,0.5)'; this.style.boxShadow='0 0 0 4px rgba(0,176,202,0.06)';"
-                            onblur="this.style.background='rgba(0,176,202,0.04)'; this.style.borderColor='rgba(0,176,202,0.2)'; this.style.boxShadow='none';">
-                        <span class="error-message hidden text-xs font-medium text-red-500 mt-1"
-                              data-error-for="name"></span>
+                        {{-- Campo: Nombre --}}
+                        <div class="space-y-1.5">
+                            <label for="name" class="flex items-center gap-1 text-xs text-slate-500">
+                                Nombre del tipo de equipo
+                                <span class="text-red-400">*</span>
+                            </label>
+                            <input type="text" id="name" name="name" required placeholder="Ej: Tipo de equipo A"
+                                value="{{ $equipment_type->name ?? '' }}"
+                                class="w-full h-10 px-3.5 text-sm text-slate-700 rounded-md outline-none transition-all duration-200 placeholder:text-slate-300"
+                                style="background: #f8fafc; border: 1px solid #e2e8f0;"
+                                onfocus="this.style.background='white'; this.style.borderColor='rgba(0,176,202,0.5)'; this.style.boxShadow='0 0 0 3px rgba(0,176,202,0.08)';"
+                                onblur="this.style.background='#f8fafc'; this.style.borderColor='#e2e8f0'; this.style.boxShadow='none';">
+                            <span class="error-message hidden text-[11px] font-medium text-red-500 mt-1"
+                                data-error-for="name"></span>
+                        </div>
+
+                        {{-- Más campos aquí --}}
+
                     </div>
 
-                    {{-- Agrega más campos aquí siguiendo el mismo patrón --}}
+                    {{-- CARD FOOTER --}}
+                    <div class="px-6 py-4 flex flex-col-reverse sm:flex-row items-center justify-between gap-3"
+                        style="border-top: 1px solid #f1f5f9; background: #fafbfc;">
 
-                </div>
+                        <p class="text-[11px] text-slate-400">
+                            <span class="text-red-400">*</span> Campos obligatorios
+                        </p>
 
-                {{-- FOOTER ACCIONES --}}
-                <div class="flex flex-col-reverse sm:flex-row items-center justify-between gap-3 px-6 sm:px-8 py-5 border-t"
-                     style="background: rgba(0,176,202,0.02); border-color: rgba(0,176,202,0.1);">
+                        <div class="flex items-center gap-2 w-full sm:w-auto">
 
-                    <p class="text-[11px] font-medium" style="color: rgba(0,176,202,0.6);">
-                        <span class="text-red-500">*</span> Campos obligatorios
-                    </p>
+                            {{-- Cancelar --}}
+                            <a href="{{ route($extend['controller'] . '.list') }}"
+                                class="flex-1 sm:flex-none h-9 px-5 flex items-center justify-center gap-1.5 text-xs font-normal text-slate-600 rounded-lg transition-all bg-slate-200 hover:bg-slate-300 active:scale-95">
+                                <span class="material-symbols-outlined text-[15px]">chevron_left</span>
+                                Cancelar
+                            </a>
 
-                    <div class="flex items-center gap-3 w-full sm:w-auto">
-                        {{-- Cancelar --}}
-                        <a href="{{ route($extend['controller'] . '.list') }}"
-                            class="flex-1 sm:flex-none px-6 py-2.5 flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest rounded-xl transition-all"
-                            style="background: rgba(0,176,202,0.06); border: 1px solid rgba(0,176,202,0.15); color: rgb(0,140,165);"
-                            onmouseover="this.style.background='rgba(0,176,202,0.12)';"
-                            onmouseout="this.style.background='rgba(0,176,202,0.06)';">
-                            <span class="material-symbols-outlined text-[16px]">close</span>
-                            Cancelar
-                        </a>
-
-                        {{-- Guardar --}}
-                        <button type="submit" id="btnSubmit"
-                            class="flex-1 sm:flex-none px-8 py-2.5 flex items-center justify-center gap-2 text-white text-xs font-black uppercase tracking-widest rounded-xl transition-all duration-200 active:scale-95 group"
-                            style="background: linear-gradient(135deg, rgb(0,176,202) 0%, rgb(0,140,165) 100%); box-shadow: 0 4px 14px rgba(0,176,202,0.3);"
-                            onmouseover="this.style.background='linear-gradient(135deg, rgb(190,214,0) 0%, rgb(160,185,0) 100%)'; this.style.boxShadow='0 4px 14px rgba(190,214,0,0.3)';"
-                            onmouseout="this.style.background='linear-gradient(135deg, rgb(0,176,202) 0%, rgb(0,140,165) 100%)'; this.style.boxShadow='0 4px 14px rgba(0,176,202,0.3)';">
-                            <span class="material-symbols-outlined text-[16px] group-hover:rotate-12 transition-transform">save</span>
-                            <span id="btnSubmitText">
-                                {{ isset($equipment_type) ? 'Actualizar' : 'Guardar' }}
-                            </span>
-                        </button>
+                            {{-- Guardar --}}
+                            <button type="submit" id="btnSubmit"
+                                class="flex-1 sm:flex-none h-9 px-6 flex items-center justify-center gap-1.5 text-white text-xs font-normal rounded-lg transition-all duration-200 active:scale-95 group"
+                                style="background: rgb(0,176,202); box-shadow: 0 2px 8px rgba(0,176,202,0.3);"
+                                onmouseover="this.style.background='rgb(190,214,0)'; this.style.boxShadow='0 2px 8px rgba(190,214,0,0.3)'; this.style.color='white';"
+                                onmouseout="this.style.background='rgb(0,176,202)'; this.style.boxShadow='0 2px 8px rgba(0,176,202,0.3)'; this.style.color='white';">
+                                <span id="btnSubmitText">
+                                    {{ isset($equipment_type) ? 'Actualizar' : 'Guardar' }}
+                                </span>
+                                {{-- <span class="material-symbols-outlined text-[15px]">chevron_right</span> --}}
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </form>
+
+            </form>
+        </div>
     </div>
-</div>
 
-@push('scripts')
-    <script>
-        const controller = "{{ $extend['controller'] }}";
-        const recordId   = "{{ $equipment_type->codequipment_type ?? '' }}";
-    </script>
-    <script src="{{ mix('js/commons/form.js') }}"></script>
-    <script src="{{ mix('js/modules/' . $extend['controller'] . '/form.js') }}"></script>
-@endpush
+    @push('scripts')
+        <script>
+            const controller = "{{ $extend['controller'] }}";
+            const recordId = "{{ $equipment_type->codequipment_type ?? '' }}";
+        </script>
+        <script src="{{ mix('js/commons/form.js') }}"></script>
+        <script src="{{ mix('js/modules/' . $extend['controller'] . '/form.js') }}"></script>
+    @endpush
 
 @endsection
