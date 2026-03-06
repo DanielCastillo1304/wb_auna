@@ -12,6 +12,7 @@ use App\Http\Controllers\DiskCapacityController;
 use App\Http\Controllers\RamCapacityController;
 use App\Http\Controllers\ReturnReasonController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PersonalImportController;
 
 Route::fallback(function () {
     return redirect('/'); // Redirige al inicio si la ruta no existe
@@ -105,3 +106,8 @@ Route::middleware(['auth'])->prefix('return_reason')->name('return_reason.')->gr
     Route::get('/show/{id}', [ReturnReasonController::class, 'show'])->name('show');
     Route::delete('/destroy/{id}', [ReturnReasonController::class, 'destroy'])->name('destroy');
 });
+
+Route::get('/upload_personal', function(){
+    return view('upload_personal');
+});
+Route::post('/import-personal', [PersonalImportController::class, 'import']);
