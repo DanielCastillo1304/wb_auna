@@ -8,13 +8,13 @@
 
     {{-- HEADER --}}
     <div class="mb-6">
-        <p class="text-[10px] font-bold uppercase tracking-[0.2em] mb-1"
+        <p class="text-[10px] font-bold uppercase mb-1"
            style="color: rgba(0,140,165,0.55);">
             Panel de Control
         </p>
         <div class="flex items-center justify-between gap-4 flex-wrap">
             <div>
-                <h1 class="text-2xl font-black text-slate-800 tracking-tight leading-none">
+                <h1 class="text-2xl font-bold text-slate-800">
                     ¡Hola, <span style="color: rgb(0,140,165);">{{ Auth::user()->username }}</span>!
                 </h1>
                 <p class="text-xs text-slate-400 mt-1 font-medium">

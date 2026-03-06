@@ -58,18 +58,18 @@
                     <div class="p-6 space-y-5">
 
                         <div class="space-y-1.5">
-                            <label for="name" class="flex items-center gap-1 text-xs text-slate-500">
+                            <label for="capacity_gb" class="flex items-center gap-1 text-xs text-slate-500">
                                 Capacidad en GB
                                 <span class="text-red-400">*</span>
                             </label>
-                            <input type="text" id="name" name="name" required placeholder="Ej: Tipo de equipo A"
-                                value="{{ $ram_capacity->name ?? '' }}"
+                            <input type="text" id="capacity_gb" name="capacity_gb" required placeholder="Ej: 64GB"
+                                value="{{ $ram_capacity->capacity_gb ?? '' }}"
                                 class="w-full h-10 px-3.5 text-sm text-slate-700 rounded-md outline-none transition-all duration-200 placeholder:text-slate-300"
                                 style="background: #f8fafc; border: 1px solid #e2e8f0;"
                                 onfocus="this.style.background='white'; this.style.borderColor='rgba(0,176,202,0.5)'; this.style.boxShadow='0 0 0 3px rgba(0,176,202,0.08)';"
                                 onblur="this.style.background='#f8fafc'; this.style.borderColor='#e2e8f0'; this.style.boxShadow='none';">
                             <span class="error-message hidden text-[11px] font-medium text-red-500 mt-1"
-                                data-error-for="name"></span>
+                                data-error-for="capacity_gb"></span>
                         </div>
 
                     </div>

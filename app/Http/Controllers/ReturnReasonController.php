@@ -26,7 +26,8 @@ class ReturnReasonController extends CrudController
         return [
             'description' => [
                 'required',
-                'text',
+                'string',
+                'max:200'
             ],
         ];
     }

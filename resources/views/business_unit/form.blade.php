@@ -62,7 +62,7 @@
                                 Nombre de la unidad
                                 <span class="text-red-400">*</span>
                             </label>
-                            <input type="text" id="name" name="name" required placeholder="Ej: Tipo de equipo A"
+                            <input type="text" id="name" name="name" required placeholder="Ej: AUNA IDEAS"
                                 value="{{ $business_unit->name ?? '' }}"
                                 class="w-full h-10 px-3.5 text-sm text-slate-700 rounded-md outline-none transition-all duration-200 placeholder:text-slate-300"
                                 style="background: #f8fafc; border: 1px solid #e2e8f0;"

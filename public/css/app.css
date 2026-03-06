@@ -1300,9 +1300,6 @@ video {
 .tracking-\[0\.3em\]{
   letter-spacing: 0.3em;
 }
-.tracking-tight{
-  letter-spacing: -0.025em;
-}
 .tracking-wider{
   letter-spacing: 0.05em;
 }

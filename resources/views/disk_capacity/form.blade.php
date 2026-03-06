@@ -62,7 +62,7 @@
                                 Capacidad
                                 <span class="text-red-400">*</span>
                             </label>
-                            <input type="text" id="capacity" name="capacity" required placeholder="Ej: Tipo de equipo A"
+                            <input type="text" id="capacity" name="capacity" required placeholder="Ej: 64 GB"
                                 value="{{ $disk_capacity->capacity ?? '' }}"
                                 class="w-full h-10 px-3.5 text-sm text-slate-700 rounded-md outline-none transition-all duration-200 placeholder:text-slate-300"
                                 style="background: #f8fafc; border: 1px solid #e2e8f0;"
@@ -72,18 +72,18 @@
                                 data-error-for="capacity"></span>
                         </div>
                         <div class="space-y-1.5">
-                            <label for="capacity" class="flex items-center gap-1 text-xs text-slate-500">
+                            <label for="disk_type" class="flex items-center gap-1 text-xs text-slate-500">
                                 Tipo de disco
                                 <span class="text-red-400">*</span>
                             </label>
-                            <input type="text" id="capacity" name="capacity" required placeholder="Ej: Tipo de equipo A"
-                                value="{{ $disk_capacity->capacity ?? '' }}"
+                            <input type="text" id="disk_type" name="disk_type" required placeholder="Ej: SSD"
+                                value="{{ $disk_capacity->disk_type ?? '' }}"
                                 class="w-full h-10 px-3.5 text-sm text-slate-700 rounded-md outline-none transition-all duration-200 placeholder:text-slate-300"
                                 style="background: #f8fafc; border: 1px solid #e2e8f0;"
                                 onfocus="this.style.background='white'; this.style.borderColor='rgba(0,176,202,0.5)'; this.style.boxShadow='0 0 0 3px rgba(0,176,202,0.08)';"
                                 onblur="this.style.background='#f8fafc'; this.style.borderColor='#e2e8f0'; this.style.boxShadow='none';">
                             <span class="error-message hidden text-[11px] font-medium text-red-500 mt-1"
-                                data-error-for="capacity"></span>
+                                data-error-for="disk_type"></span>
                         </div>
 
                     </div>

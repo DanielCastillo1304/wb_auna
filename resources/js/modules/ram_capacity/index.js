@@ -68,7 +68,7 @@ window.createTableRow = function (record, rowNumber) {
 
             <td class="px-5 py-3 text-xs">
                 <span class="text-sm font-medium text-slate-700">
-                    ${record.capacity_gb || "—"}
+                    ${record.capacity_gb || "—"} GB
                 </span>
             </td>
             <td class="px-6 py-4">
