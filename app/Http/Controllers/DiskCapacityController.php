@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\maintenance\DiskCapacity;
+use App\Models\Maintenance\DiskCapacity;
 use Illuminate\Validation\Rule;
 
 class DiskCapacityController extends CrudController
@@ -13,6 +13,10 @@ class DiskCapacityController extends CrudController
 
     public function __construct()
     {
+        $this->middleware('module.permission:listar')->only('index');
+        $this->middleware('module.permission:editar')->only('form');
+        $this->middleware('module.permission:crear')->only(['store']);
+        $this->middleware('module.permission:eliminar')->only('destroy');
         $this->extend = [
             'title'       => 'Capacidad de disco',
             'title_form'  => 'Capacidad de disco',
@@ -39,6 +43,6 @@ class DiskCapacityController extends CrudController
 
     protected function searchFields(): array
     {
-        return ['capacity','disk_type'];
+        return ['capacity', 'disk_type'];
     }
 }

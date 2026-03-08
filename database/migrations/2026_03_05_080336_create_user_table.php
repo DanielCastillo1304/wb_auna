@@ -15,10 +15,17 @@ class CreateUserTable extends Migration
     {
         Schema::create('security.user', function (Blueprint $table) {
             $table->bigIncrements('coduser');
+            $table->unsignedBigInteger('codprofile');
             $table->string('username')->nullable();
             $table->string('password')->nullable();
             $table->timestamps();
             $table->softDeletes();
+
+            // Foreings
+            $table->foreign('codprofile')
+                ->references('codprofile')
+                ->on('security.profile')
+                ->onDelete('restrict');
         });
     }
 

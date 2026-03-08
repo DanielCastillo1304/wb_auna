@@ -2,7 +2,7 @@
 
 namespace App\Imports;
 
-use App\Models\maintenance\Personal;
+use App\Models\Maintenance\Personal;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;

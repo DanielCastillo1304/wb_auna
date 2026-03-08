@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\maintenance\Location;
+use App\Models\Maintenance\Location;
 use Illuminate\Validation\Rule;
 
 class LocationController extends CrudController
@@ -13,6 +13,10 @@ class LocationController extends CrudController
 
     public function __construct()
     {
+        $this->middleware('module.permission:listar')->only('index');
+        $this->middleware('module.permission:editar')->only('form');
+        $this->middleware('module.permission:crear')->only(['store']);
+        $this->middleware('module.permission:eliminar')->only('destroy');
         $this->extend = [
             'title'       => 'Nuestras Sedes',
             'title_form'  => 'Nuestras sedes',

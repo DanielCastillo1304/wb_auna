@@ -9,15 +9,17 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EquipmentTypeController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\DiskCapacityController;
+use App\Http\Controllers\PersonalController;
 use App\Http\Controllers\RamCapacityController;
 use App\Http\Controllers\ReturnReasonController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PersonalImportController;
+use App\Http\Controllers\GenerateInsertController;
 
 Route::fallback(function () {
     return redirect('/'); // Redirige al inicio si la ruta no existe
 });
-
+Route::get('/generate-initial-data', [GenerateInsertController::class, 'generate']);
 Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('auth');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
@@ -105,6 +107,17 @@ Route::middleware(['auth'])->prefix('return_reason')->name('return_reason.')->gr
     Route::post('/search', [ReturnReasonController::class, 'search'])->name('search');
     Route::get('/show/{id}', [ReturnReasonController::class, 'show'])->name('show');
     Route::delete('/destroy/{id}', [ReturnReasonController::class, 'destroy'])->name('destroy');
+});
+
+
+Route::middleware(['auth'])->prefix('personal')->name('personal.')->group(function () {
+    Route::get('/list', [PersonalController::class, 'index'])->name('list');
+    Route::get('/form/{id?}', [PersonalController::class, 'form'])->name('form');
+    Route::post('/store/{id?}', [PersonalController::class, 'store'])->name('store');
+    Route::get('/records/{from}/{to}/{keyword?}', [PersonalController::class, 'records'])->name('records');
+    Route::post('/search', [PersonalController::class, 'search'])->name('search');
+    Route::get('/show/{id}', [PersonalController::class, 'show'])->name('show');
+    Route::delete('/destroy/{id}', [PersonalController::class, 'destroy'])->name('destroy');
 });
 
 Route::get('/upload_personal', function(){

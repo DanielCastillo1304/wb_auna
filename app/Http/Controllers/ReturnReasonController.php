@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\maintenance\ReturnReason;
+use App\Models\Maintenance\ReturnReason;
 use Illuminate\Validation\Rule;
 
 class ReturnReasonController extends CrudController
@@ -13,6 +13,10 @@ class ReturnReasonController extends CrudController
 
     public function __construct()
     {
+        $this->middleware('module.permission:listar')->only('index');
+        $this->middleware('module.permission:editar')->only('form');
+        $this->middleware('module.permission:crear')->only(['store']);
+        $this->middleware('module.permission:eliminar')->only('destroy');
         $this->extend = [
             'title'       => 'Motivo de devolución',
             'title_form'  => 'Motivo de evolución',

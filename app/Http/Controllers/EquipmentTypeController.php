@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\maintenance\EquipmentType;
+use App\Models\Maintenance\EquipmentType;
 use Illuminate\Validation\Rule;
 
 class EquipmentTypeController extends CrudController
@@ -13,6 +13,10 @@ class EquipmentTypeController extends CrudController
 
     public function __construct()
     {
+        $this->middleware('module.permission:listar')->only('index');
+        $this->middleware('module.permission:editar')->only('form');
+        $this->middleware('module.permission:crear')->only(['store']);
+        $this->middleware('module.permission:eliminar')->only('destroy');
         $this->extend = [
             'title'       => 'Tipos de equipos',
             'title_form'  => 'Tipo de equipo',

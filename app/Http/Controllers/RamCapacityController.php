@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\maintenance\RamCapacity;
+use App\Models\Maintenance\RamCapacity;
 use Illuminate\Validation\Rule;
 
 class RamCapacityController extends CrudController
@@ -23,6 +23,10 @@ class RamCapacityController extends CrudController
 
     protected function rules($id = null): array
     {
+        $this->middleware('module.permission:listar')->only('index');
+        $this->middleware('module.permission:editar')->only('form');
+        $this->middleware('module.permission:crear')->only(['store']);
+        $this->middleware('module.permission:eliminar')->only('destroy');
         return [
             'capacity_gb' => [
                 'required',

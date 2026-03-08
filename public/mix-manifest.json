@@ -11,6 +11,8 @@
     "/js/modules/equipment_type/index.js": "/js/modules/equipment_type/index.js",
     "/js/modules/location/form.js": "/js/modules/location/form.js",
     "/js/modules/location/index.js": "/js/modules/location/index.js",
+    "/js/modules/personal/form.js": "/js/modules/personal/form.js",
+    "/js/modules/personal/index.js": "/js/modules/personal/index.js",
     "/js/modules/ram_capacity/form.js": "/js/modules/ram_capacity/form.js",
     "/js/modules/ram_capacity/index.js": "/js/modules/ram_capacity/index.js",
     "/js/modules/return_reason/form.js": "/js/modules/return_reason/form.js",
