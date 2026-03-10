@@ -4,7 +4,7 @@
 
 @section('content')
 
-<div class="min-h-screen" style="background: #f4f6f8;">
+<div class="">
     <div class="px-6 lg:px-10 py-6">
 
         {{-- ALERT CONTAINER --}}

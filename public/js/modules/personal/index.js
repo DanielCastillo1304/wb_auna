@@ -4,7 +4,7 @@
   \************************************************/
 $(document).ready(function () {
   CONFIG.baseUrl = "/".concat(controller);
-  CONFIG.recordsPerPage = 15;
+  CONFIG.recordsPerPage = 5;
   loadInitialRecords();
   setupEventListeners();
 });

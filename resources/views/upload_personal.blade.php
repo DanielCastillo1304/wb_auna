@@ -3,7 +3,7 @@
 @section('title', (env('APP_NAME') ?? 'AUNA') . ' - Subir personal')
 
 @section('content')
-    <div class="min-h-screen" style="background: #f4f6f8;">
+    <div class="">
 
         {{-- TOPBAR DEL FORM --}}
         <div class="bg-white px-6 lg:px-10 py-4 flex items-center gap-4" style="border-bottom: 1px solid #e8edf2;">
