@@ -134,14 +134,6 @@
                         {{ $authUser->username ?? '' }}
                     </p>
                 </div>
-                <a href="{{ route('user.password') }}"
-                    class="w-7 h-7 flex items-center justify-center rounded-lg transition-all flex-shrink-0"
-                    style="color: rgba(255,255,255,0.3);"
-                    onmouseover="this.style.background='rgba(0,176,202,0.1)'; this.style.color='rgb(0,176,202)';"
-                    onmouseout="this.style.background=''; this.style.color='rgba(255,255,255,0.3)';"
-                    title="Cambiar contraseña">
-                    <span class="material-symbols-outlined text-[17px]">lock</span>
-                </a>
                 <button onclick="document.getElementById('logout-form').submit()"
                     class="w-7 h-7 flex items-center justify-center rounded-lg transition-all flex-shrink-0"
                     style="color: rgba(255,255,255,0.3);"

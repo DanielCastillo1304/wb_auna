@@ -22,7 +22,7 @@
                 {{-- Avatar --}}
                 <div class="w-8 h-8 rounded-lg overflow-hidden flex-shrink-0 bg-slate-900 flex items-center justify-center"
                      style="border: 1.5px solid #e8edf2;">
-                    <img src="mix('resources/images/person.jpg') }}"
+                    <img src="{{ mix('img/person.jpg') }}"
                          class="w-full h-full object-cover"
                          alt="{{ $authUser->username}}">
                 </div>

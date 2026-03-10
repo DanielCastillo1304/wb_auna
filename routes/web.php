@@ -118,9 +118,11 @@ Route::middleware(['auth'])->prefix('personal')->name('personal.')->group(functi
     Route::post('/search', [PersonalController::class, 'search'])->name('search');
     Route::get('/show/{id}', [PersonalController::class, 'show'])->name('show');
     Route::delete('/destroy/{id}', [PersonalController::class, 'destroy'])->name('destroy');
+
+    Route::get('/upload', function () {
+        return view('upload_personal');
+    });
 });
 
-Route::get('/upload_personal', function(){
-    return view('upload_personal');
-});
+
 Route::post('/import-personal', [PersonalImportController::class, 'import']);
